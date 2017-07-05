@@ -6,7 +6,19 @@ function main() {
 
   server.addProtoService(helloworld.HelloWorld.service, {
     sayHello: (call, callback) => {
-      callback(null, { text: 'Hello ' + call.request.name || 'World!' });
+      callback(null, { text: `Hello ${call.request.name}!` });
+    },
+    sayHelloStreamingRequestResponse: (call) => {
+      call.on('data', (data) => {
+        call.write(`Hello, ${data.name}!`);
+      })
+
+      call.on('end', () => {
+        call.end();
+      });
+    },
+    sayHelloStreamingResponse: (call) => {
+      call.send()
     }
   });
 

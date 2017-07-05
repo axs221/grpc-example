@@ -5,6 +5,7 @@ package helloworld;
 // This is the service for our API
 service HelloWorld {
   rpc SayHello(Name) returns (HelloResponse) {}
+  rpc SayHelloStreamingRequestResponse(stream Name) returns (stream HelloResponse) {}
 }
 
 message Name {
